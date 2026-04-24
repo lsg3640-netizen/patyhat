@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고깔모자 원단 목업 메이커</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell app">
+    <section class="left-column left-panel">
+      <header class="hero left-header">
+        <div>
+          <p class="eyebrow">오프라인 / 설치 없음</p>
+          <h1>고깔모자 원단 목업 메이커</h1>
+          <p id="modelStatus" class="hero-copy">실제 model.jpg 기준 미리보기</p>
+        </div>
+        <div class="hero-badges">
+          <span>JPG / PNG</span>
+          <span>기준 사진 고정</span>
+          <span>합성 PNG 저장</span>
+        </div>
+      </header>
+
+      <div class="left-content left-scroll">
+        <aside class="control-panel">
+          <section class="panel-section">
+            <h2>1. 원단 업로드</h2>
+            <label class="file-card">
+              <span class="file-card-title">고깔/리본 원단 이미지 선택</span>
+              <span class="file-card-sub">JPG, PNG 파일 지원</span>
+              <input id="fabricUpload" type="file" accept="image/png, image/jpeg">
+            </label>
+            <div class="file-actions">
+              <button id="resetFabricBtn" type="button" class="secondary-btn">원단 위치 초기화</button>
+            </div>
+            <p id="fabricStatus" class="status-text">업로드한 원단이 고깔과 턱 리본에 함께 적용됩니다.</p>
+          </section>
+
+          <section class="panel-section">
+            <h2>2. 원단 조절</h2>
+            <label class="field">
+              <span>확대 / 축소</span>
+              <div class="field-row">
+                <input id="fabricScale" type="range" min="30" max="240" step="1" value="100">
+                <strong id="fabricScaleValue">100%</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>좌우 이동</span>
+              <div class="field-row">
+                <input id="fabricOffsetX" type="range" min="-400" max="400" step="1" value="0">
+                <strong id="fabricOffsetXValue">0</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>상하 이동</span>
+              <div class="field-row">
+                <input id="fabricOffsetY" type="range" min="-400" max="400" step="1" value="0">
+                <strong id="fabricOffsetYValue">0</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>회전</span>
+              <div class="field-row">
+                <input id="fabricRotation" type="range" min="-180" max="180" step="1" value="0">
+                <strong id="fabricRotationValue">0°</strong>
+              </div>
+            </label>
+            <label class="toggle-row">
+              <input id="patternRepeat" type="checkbox" checked>
+              <span>반복 패턴 사용</span>
+            </label>
+          </section>
+
+          <section class="panel-section">
+            <h2>3. 폼폼</h2>
+            <label class="toggle-row">
+              <input id="showPompom" type="checkbox" checked>
+              <span>폼폼 표시</span>
+            </label>
+            <label class="field">
+              <span>폼폼 색상</span>
+              <div class="field-row compact">
+                <input id="pompomColor" type="color" value="#c71c2f">
+                <strong id="pompomColorValue">#c71c2f</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>폼폼 크기</span>
+              <div class="field-row">
+                <input id="pompomSize" type="range" min="26" max="96" step="1" value="56">
+                <strong id="pompomSizeValue">56</strong>
+              </div>
+            </label>
+          </section>
+
+          <section class="panel-section">
+            <h2>4. 문구 / 로고</h2>
+            <label class="field">
+              <span>문구 입력</span>
+              <textarea id="logoText" class="wide-input text-area-input" placeholder="예: love you&#10;Dad"></textarea>
+            </label>
+            <label class="field">
+              <span>문구 폰트</span>
+              <select id="textFont" class="wide-select">
+                <option value="basic">기본체</option>
+                <option value="bold">굵은체</option>
+                <option value="script">필기체</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>문구 색상</span>
+              <div class="field-row compact">
+                <input id="textColor" type="color" value="#d43e36">
+                <strong id="textColorValue">#d43e36</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>문구 크기</span>
+              <div class="field-row">
+                <input id="textSize" type="range" min="18" max="110" step="1" value="56">
+                <strong id="textSizeValue">56</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>문구 좌우 위치</span>
+              <div class="field-row">
+                <input id="textOffsetX" type="range" min="-220" max="220" step="1" value="0">
+                <strong id="textOffsetXValue">0</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>문구 상하 위치</span>
+              <div class="field-row">
+                <input id="textOffsetY" type="range" min="-220" max="220" step="1" value="0">
+                <strong id="textOffsetYValue">0</strong>
+              </div>
+            </label>
+
+            <div class="divider"></div>
+
+            <label class="file-card mini">
+              <span class="file-card-title">앞면 로고 이미지 선택</span>
+              <span class="file-card-sub">선택 사항 / PNG, JPG</span>
+              <input id="logoUpload" type="file" accept="image/png, image/jpeg">
+            </label>
+            <label class="field">
+              <span>로고 크기</span>
+              <div class="field-row">
+                <input id="logoScale" type="range" min="20" max="220" step="1" value="90">
+                <strong id="logoScaleValue">90%</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>로고 좌우 위치</span>
+              <div class="field-row">
+                <input id="logoOffsetX" type="range" min="-220" max="220" step="1" value="0">
+                <strong id="logoOffsetXValue">0</strong>
+              </div>
+            </label>
+            <label class="field">
+              <span>로고 상하 위치</span>
+              <div class="field-row">
+                <input id="logoOffsetY" type="range" min="-220" max="220" step="1" value="0">
+                <strong id="logoOffsetYValue">0</strong>
+              </div>
+            </label>
+            <button id="clearLogoBtn" type="button" class="secondary-btn full">로고 제거</button>
+          </section>
+
+          <section class="panel-section">
+            <h2>5. 저장</h2>
+            <button id="downloadBtn" type="button" class="primary-btn">합성 PNG 저장</button>
+            <button id="downloadTransparentBtn" type="button" class="secondary-btn full">고깔/리본 영역만 투명 PNG 저장</button>
+            <p class="status-text small">실제 model.jpg 사진은 고정으로 유지되고, 기존 파티햇과 턱 리본 원단 영역만 바뀐 결과가 저장됩니다.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="preview-panel right-preview">
+      <div class="preview-head">
+        <div>
+          <p class="eyebrow">실시간 미리보기</p>
+          <h2>완성 이미지</h2>
+        </div>
+        <div class="preview-note">실제 사진은 그대로 두고, 기존 파티햇과 턱 리본의 원단 영역만 같은 원단으로 함께 변경합니다.</div>
+      </div>
+      <div class="preview-canvas-wrap">
+        <div id="previewStage" class="preview-stage">
+          <canvas id="previewCanvas" width="1400" height="1400" aria-label="고깔모자 미리보기"></canvas>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script charset="utf-8" src="./app.js"></script>
+</body>
+</html>
