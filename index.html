@@ -528,6 +528,9 @@ input[type="color"] {
               <input id="fabricUpload" type="file" accept="image/png, image/jpeg">
             </label>
             <div class="file-actions">
+              <button id="pasteFocusBtn" type="button" class="secondary-btn">여기를 클릭 후 Ctrl+V</button>
+            </div>
+            <div class="file-actions">
               <button id="resetFabricBtn" type="button" class="secondary-btn">원단 위치 초기화</button>
             </div>
             <p id="fabricStatus" class="status-text">업로드한 원단이 고깔과 턱 리본에 함께 적용됩니다.</p>
@@ -684,7 +687,7 @@ input[type="color"] {
         <div class="preview-note">실제 사진은 그대로 두고, 기존 파티햇과 턱 리본의 원단 영역만 같은 원단으로 함께 변경합니다.</div>
       </div>
       <div class="preview-canvas-wrap">
-        <div id="previewStage" class="preview-stage">
+        <div id="previewStage" class="preview-stage" tabindex="0">
           <canvas id="previewCanvas" width="1400" height="1400" aria-label="고깔모자 미리보기"></canvas>
         </div>
       </div>
