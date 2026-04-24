@@ -547,6 +547,13 @@ function loadImageFromFile(file, onLoaded) {
   reader.readAsDataURL(file);
 }
 
+function applyFabricImage(image, fileName, message) {
+  state.fabric.image = image;
+  state.fabric.name = fileName;
+  fabricStatus.textContent = message;
+  renderComposite();
+}
+
 function loadModelImage() {
   const image = new Image();
   image.onload = () => {
@@ -755,11 +762,40 @@ bindInput(controls.logoOffsetY, (control) => {
 controls.fabricUpload.addEventListener("change", (event) => {
   const [file] = event.target.files;
   loadImageFromFile(file, (image, fileName) => {
-    state.fabric.image = image;
-    state.fabric.name = fileName;
-    fabricStatus.textContent = `원단 이미지 "${fileName}" 를 불러왔습니다. 기존 고깔과 턱 리본에 함께 적용됩니다.`;
-    renderComposite();
+    applyFabricImage(
+      image,
+      fileName,
+      `원단 이미지 "${fileName}" 를 불러왔습니다. 기존 고깔과 턱 리본에 함께 적용됩니다.`
+    );
   });
+});
+
+document.addEventListener("paste", (event) => {
+  const items = event.clipboardData?.items;
+  if (!items) {
+    return;
+  }
+
+  for (const item of items) {
+    if (!item.type.startsWith("image/")) {
+      continue;
+    }
+
+    const file = item.getAsFile();
+    if (!file) {
+      continue;
+    }
+
+    loadImageFromFile(file, (image, fileName) => {
+      applyFabricImage(
+        image,
+        fileName || "pasted-image",
+        "붙여넣은 이미지가 원단으로 적용되었습니다."
+      );
+    });
+    event.preventDefault();
+    break;
+  }
 });
 
 controls.logoUpload.addEventListener("change", (event) => {
