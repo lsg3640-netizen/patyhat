@@ -4,7 +4,503 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>고깔모자 원단 목업 메이커</title>
-  <link rel="stylesheet" href="./styles.css">
+  <style>
+:root {
+  --app-gap: 24px;
+  --app-pad: 24px;
+}
+
+:root {
+  --bg: #f6f0e7;
+  --panel: #fffaf4;
+  --panel-strong: #ffffff;
+  --ink: #1f2b37;
+  --muted: #566575;
+  --line: #d7cbbb;
+  --accent: #cc5a2a;
+  --accent-soft: #ffe0cf;
+  --shadow: 0 16px 40px rgba(48, 39, 27, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(255, 232, 204, 0.95), transparent 32%),
+    linear-gradient(180deg, #fdf7ef 0%, var(--bg) 100%);
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell,
+.app {
+  height: 100vh;
+  padding: var(--app-pad);
+  display: flex;
+  gap: var(--app-gap);
+  overflow: hidden;
+}
+
+.left-column,
+.left-panel {
+  width: 340px;
+  min-width: 340px;
+  height: calc(100vh - (var(--app-pad) * 2));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, rgba(255, 250, 244, 0.96), rgba(255, 239, 223, 0.95));
+  border: 1px solid rgba(215, 203, 187, 0.85);
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(48, 39, 27, 0.08);
+}
+
+.left-header {
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+.left-content,
+.left-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+}
+
+.eyebrow {
+  margin: 0 0 2px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #b75f2c;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.preview-head h2 {
+  margin: 0;
+  line-height: 1.08;
+}
+
+.hero h1 {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  white-space: nowrap;
+}
+
+.preview-head h2 {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+}
+
+.hero-copy {
+  max-width: 100%;
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.9;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 180px;
+  max-width: 210px;
+}
+
+.hero-badges span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(208, 183, 155, 0.8);
+  font-weight: 700;
+  font-size: 0.72rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.control-panel {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.panel-section,
+.preview-panel {
+  background: rgba(255, 250, 244, 0.95);
+  border: 1px solid rgba(215, 203, 187, 0.9);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+}
+
+.panel-section {
+  padding: 22px 20px;
+}
+
+.panel-section h2 {
+  margin: 0 0 18px;
+  font-size: 1.15rem;
+}
+
+.field {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.field span {
+  font-weight: 700;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.field-row strong {
+  min-width: 64px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+  color: #405266;
+}
+
+.field-row.compact {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+input[type="color"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.wide-input,
+.wide-select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.text-area-input {
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  font-weight: 700;
+}
+
+.toggle-row input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--accent);
+}
+
+.file-card {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 2px dashed #d2b99f;
+  background: linear-gradient(180deg, #fffefb, #fff5ea);
+  cursor: pointer;
+}
+
+.file-card input {
+  margin-top: 8px;
+}
+
+.file-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.file-card-sub {
+  color: var(--muted);
+}
+
+.file-card.mini {
+  margin-bottom: 16px;
+}
+
+.file-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.primary-btn,
+.secondary-btn {
+  min-height: 54px;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  width: 100%;
+  color: #fff;
+  background: linear-gradient(135deg, #d96330, #b84c23);
+  box-shadow: 0 12px 24px rgba(184, 76, 35, 0.25);
+}
+
+.secondary-btn {
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.secondary-btn.full {
+  width: 100%;
+}
+
+.status-text {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.status-text.small {
+  font-size: 0.92rem;
+}
+
+.divider {
+  height: 1px;
+  margin: 18px 0;
+  background: linear-gradient(90deg, transparent, rgba(193, 173, 148, 0.85), transparent);
+}
+
+.preview-panel,
+.right-preview {
+  position: relative;
+  flex: 1 1 auto;
+  height: calc(100vh - (var(--app-pad) * 2));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.preview-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.preview-note {
+  max-width: 320px;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: right;
+}
+
+.preview-canvas-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+
+.preview-stage {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(215, 203, 187, 0.9);
+  background: #ffffff;
+  cursor: default;
+}
+
+.preview-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.05));
+}
+
+#previewCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1180px) {
+  :root {
+    --app-gap: 16px;
+    --app-pad: 16px;
+  }
+
+  .app-shell,
+  .app {
+    flex-direction: column;
+  }
+
+  .preview-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .preview-note {
+    max-width: none;
+    text-align: left;
+  }
+
+  .left-column {
+    order: 2;
+  }
+
+  .left-column,
+  .left-panel,
+  .preview-panel,
+  .right-preview {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .left-column,
+  .left-panel {
+    flex: 1 1 auto;
+    height: auto;
+  }
+
+  .preview-panel,
+  .right-preview {
+    order: 1;
+    flex: 0 0 42vh;
+    height: 42vh;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --app-gap: 12px;
+    --app-pad: 12px;
+  }
+
+  .hero {
+    padding: 7px 8px;
+  }
+
+  .hero-badges {
+    justify-content: flex-start;
+    max-width: none;
+  }
+
+  .panel-section,
+  .preview-panel {
+    padding: 16px 14px;
+  }
+
+  .preview-panel,
+  .right-preview {
+    flex-basis: 38vh;
+    height: 38vh;
+  }
+
+  .preview-head {
+    margin-bottom: 12px;
+  }
+
+  .preview-stage {
+    border-radius: 20px;
+  }
+
+  .hero h1 {
+    white-space: normal;
+  }
+
+  .hero-copy {
+    display: none;
+  }
+}
+  </style>
 </head>
 <body>
   <div class="app-shell app">
